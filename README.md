@@ -1,2 +1,2 @@
 # xamarin
-Xamarin projects and samples
+Repository where all my public Xamarin projects are stored.
