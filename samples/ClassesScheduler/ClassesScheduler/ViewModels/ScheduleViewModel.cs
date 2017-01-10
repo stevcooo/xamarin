@@ -1,0 +1,88 @@
+﻿using ClassesScheduler.Models;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+
+namespace ClassesScheduler.ViewModels
+{
+    public class ScheduleViewModel
+    {
+        public ScheduleViewModel()
+        {
+            GetSchedule();
+            //ss.ClassSchedules.FirstOrDefault().Course.Proffesor.FirstName;
+            CassSchedulesForSpecificDay csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Monday";
+            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Monday).OrderBy(t => t.FromHour).ToList();
+            Days.Add(csfsd);
+
+            csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Tuesday";
+            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Tuesday).OrderBy(t => t.FromHour).ToList();
+            Days.Add(csfsd);
+
+            csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Wednesday";
+            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Wednesday).OrderBy(t => t.FromHour).ToList();
+            Days.Add(csfsd);
+
+            csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Tuesday";
+            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Tuesday).OrderBy(t => t.FromHour).ToList();
+            Days.Add(csfsd);
+
+            csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Friday";
+            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Friday).OrderBy(t => t.FromHour).ToList();
+            Days.Add(csfsd);
+        }
+
+        public Course c = new Course();
+        public SemestarSchedule ss { get; set; }
+
+        private ICollection<CassSchedulesForSpecificDay> _days;
+        public ICollection<CassSchedulesForSpecificDay> Days
+        {
+            get
+            {
+                if (_days == null)
+                    _days = new ObservableCollection<CassSchedulesForSpecificDay>();
+                return _days;
+            }
+        }
+
+        public void GetSchedule()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://classesschedulerapi.kostoski.com/api/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                Task.Run(async () =>
+                {
+                    HttpResponseMessage response = await client.GetAsync(String.Format("semestarSchedules"));                    
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string jsonResponse = response.Content.ReadAsStringAsync().Result.Replace("'", "\'");
+                        try
+                        {
+                            var result = JsonConvert.DeserializeObject<List<SemestarSchedule>>(jsonResponse);
+                            if (result != null)
+                                ss = result.FirstOrDefault();
+                        }
+                        catch(Exception ex)
+                        {
+
+                        }
+                    }
+
+                }).Wait();
+            }
+        }
+    }
+}

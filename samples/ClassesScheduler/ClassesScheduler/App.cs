@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClassesScheduler.Models;
+using ClassesScheduler.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,19 +14,35 @@ namespace ClassesScheduler
         public App()
         {
             // The root page of your application
-            MainPage = new ContentPage
+            MainPage = new NavigationPage(new StudyFieldsPage());
+        }
+
+        static App _instance;
+        public static App Instance
+        {
+            get
             {
-                Content = new StackLayout
+                if (_instance == null)
                 {
-                    VerticalOptions = LayoutOptions.Center,
-                    Children = {
-                        new Label {
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms demo!"
-                        }
-                    }
+                    _instance = new App();
                 }
-            };
+                return _instance;
+            }
+        }
+
+        private ScheduleParametars _sheduleParametars;
+        public ScheduleParametars ScheduleParametars
+        {
+            get
+            {
+                if (_sheduleParametars == null)
+                    _sheduleParametars = new ScheduleParametars();
+                return _sheduleParametars;
+            }
+            set
+            {
+                _sheduleParametars = value;
+            }
         }
 
         protected override void OnStart()
