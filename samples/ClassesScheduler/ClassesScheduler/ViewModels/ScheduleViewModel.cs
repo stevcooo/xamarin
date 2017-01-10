@@ -32,8 +32,8 @@ namespace ClassesScheduler.ViewModels
             Days.Add(csfsd);
 
             csfsd = new CassSchedulesForSpecificDay();
-            csfsd.NameOfDay = "Tuesday";
-            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Tuesday).OrderBy(t => t.FromHour).ToList();
+            csfsd.NameOfDay = "Thursday";
+            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Thursday).OrderBy(t => t.FromHour).ToList();
             Days.Add(csfsd);
 
             csfsd = new CassSchedulesForSpecificDay();

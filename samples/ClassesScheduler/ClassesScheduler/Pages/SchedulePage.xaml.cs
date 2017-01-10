@@ -9,12 +9,14 @@ using Xamarin.Forms;
 
 namespace ClassesScheduler.Pages
 {
-    public partial class SchedulePage : ContentPage
+    public partial class SchedulePage : CarouselPage
     {
         public SchedulePage()
         {
             InitializeComponent();
-            BindingContext = new ScheduleViewModel();
+            var viewModel = new ScheduleViewModel();
+            BindingContext = viewModel;
+            ItemsSource = viewModel.Days;
         }
     }
 }
