@@ -8,13 +8,15 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
-      <Label Grid.Row="0" Text="Please select your field of study"/>
-      <ListView Grid.Row="1" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
-        <ListView.ItemTemplate VerticalOptions="FillAndexpand" >
+      <Label Grid.Row="0" Text="Please select your field of study" FontSize="18"/>
+      <ListView Grid.Row="1" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" SeparatorVisibility="None" >
+        <ListView.ItemTemplate VerticalOptions="FillAndexpand">
           <DataTemplate>
             <ViewCell>
               <ViewCell.View>
-                <Label Text="{Binding Description}"/>
+                <Grid Padding="10,0,0,0">
+                  <Label Text="{Binding Description}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                </Grid>
               </ViewCell.View>
             </ViewCell>
           </DataTemplate>

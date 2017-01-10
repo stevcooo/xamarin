@@ -15,7 +15,7 @@
               <DataTemplate>
                 <ViewCell>
                   <ViewCell.View>
-                    <Grid>
+                    <Grid Padding="10,0,0,10">
                       <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
