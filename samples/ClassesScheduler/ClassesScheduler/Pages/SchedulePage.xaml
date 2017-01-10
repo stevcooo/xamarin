@@ -4,23 +4,44 @@
   <CarouselPage.ItemTemplate>
     <DataTemplate>
       <ContentPage>
-        <ContentPage.Padding>
-          <OnPlatform x:TypeArguments="Thickness" iOS="0,40,0,0" Android="0,40,0,0" />
-        </ContentPage.Padding>
-        <StackLayout>
-          <Label Text="{Binding NameOfDay}" FontSize="Medium" HorizontalOptions="Center" />
-          <ListView Grid.Row="1" ItemsSource="{Binding Classes}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <Label Grid.Row="0" Text="{Binding NameOfDay}" FontSize="Medium" HorizontalOptions="Center" />
+          <ListView Grid.Row="1" ItemsSource="{Binding Classes}" HasUnevenRows="True">
             <ListView.ItemTemplate VerticalOptions="FillAndexpand" >
               <DataTemplate>
                 <ViewCell>
                   <ViewCell.View>
-                    <Label Text="{Binding Course.Name}"/>
+                    <Grid>
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                      </Grid.RowDefinitions>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                      </Grid.ColumnDefinitions>
+                      <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Course.Name}" FontSize="18"/>
+                      <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Course.Proffesor.FullName}" FontSize="16"/>
+                      <Label Grid.Row="2" Grid.Column="0" Text="From:"/>
+                      <Label Grid.Row="2" Grid.Column="1" Text="{Binding FromHour}"/>
+                      <Label Grid.Row="3" Grid.Column="0" Text="To:"/>
+                      <Label Grid.Row="3" Grid.Column="1" Text="{Binding ToHour}"/>
+                      <Label Grid.Row="4" Grid.Column="0" Text="Classrom:"/>
+                      <Label Grid.Row="4" Grid.Column="1" Text="{Binding ClassromCode}"/>
+                    </Grid>
                   </ViewCell.View>
                 </ViewCell>
               </DataTemplate>
             </ListView.ItemTemplate>
           </ListView>
-        </StackLayout>
+        </Grid>
       </ContentPage>
     </DataTemplate>
   </CarouselPage.ItemTemplate>
