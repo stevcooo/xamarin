@@ -13,6 +13,8 @@ namespace ClassesScheduler.Pages
     {
         public SchedulePage()
         {
+            Title = "Schedule";
+            NavigationPage.SetHasBackButton(this, true);
             InitializeComponent();
             var viewModel = new ScheduleViewModel();
             BindingContext = viewModel;

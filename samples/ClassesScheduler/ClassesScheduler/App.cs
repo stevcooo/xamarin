@@ -14,7 +14,7 @@ namespace ClassesScheduler
         public App()
         {
             // The root page of your application
-            MainPage = new NavigationPage(new StudyFieldsPage());
+            MainPage = new NavigationPage(new StudyFieldsPage());            
         }
 
         static App _instance;

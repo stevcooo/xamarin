@@ -8,8 +8,19 @@ namespace ClassesScheduler.Pages
     {
         public YearOfStudyPage()
         {
+            //Title = "Year of study";
+            //NavigationPage.SetBackButtonTitle(this, "Back");
+            //NavigationPage.SetHasBackButton(this, true);
             InitializeComponent();
-            BindingContext = new YearOfStudyViewModel(Navigation);
+            BindingContext = new YearOfStudyViewModel(Navigation);            
+            
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            base.OnBackButtonPressed();
+            Navigation.PopAsync();
+            return true;
         }
     }
 }

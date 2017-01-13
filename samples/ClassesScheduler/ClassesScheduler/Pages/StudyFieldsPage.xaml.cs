@@ -7,7 +7,8 @@ namespace ClassesScheduler.Pages
     public partial class StudyFieldsPage : ContentPage
     {
         public StudyFieldsPage()
-        {
+        {   
+            Title = "Field of study";
             InitializeComponent();            
             BindingContext = new StudyFieldsViewModel(Navigation);
         }
