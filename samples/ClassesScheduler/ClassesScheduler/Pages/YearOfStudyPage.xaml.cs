@@ -15,12 +15,5 @@ namespace ClassesScheduler.Pages
             BindingContext = new YearOfStudyViewModel(Navigation);            
             
         }
-
-        protected override bool OnBackButtonPressed()
-        {
-            base.OnBackButtonPressed();
-            Navigation.PopAsync();
-            return true;
-        }
     }
 }

@@ -15,23 +15,10 @@ namespace ClassesScheduler
         {
             // The root page of your application
             MainPage = new NavigationPage(new StudyFieldsPage());            
-        }
+        }        
 
-        static App _instance;
-        public static App Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new App();
-                }
-                return _instance;
-            }
-        }
-
-        private ScheduleParametars _sheduleParametars;
-        public ScheduleParametars ScheduleParametars
+        private static ScheduleParametars _sheduleParametars;
+        public static ScheduleParametars ScheduleParametars
         {
             get
             {

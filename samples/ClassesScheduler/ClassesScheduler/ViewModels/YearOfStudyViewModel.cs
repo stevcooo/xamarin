@@ -44,7 +44,7 @@ namespace ClassesScheduler.ViewModels
                 var val = x as KeyValue;
                 if (val != null)
                 {
-                    App.Instance.ScheduleParametars.YearOfStudy = val.Value;
+                    App.ScheduleParametars.YearOfStudy = val.Value;                    
                     Navigation.PushAsync(new SchedulePage());
                 }
             });

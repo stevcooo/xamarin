@@ -23,7 +23,7 @@ namespace ClassesScheduler.ViewModels
                  var val = x as KeyValue;
                  if (val != null)
                  {
-                     App.Instance.ScheduleParametars.StudyField = val;
+                     App.ScheduleParametars.StudyField = val;
                      Navigation.PushAsync(new YearOfStudyPage());                     
                  }
             });
