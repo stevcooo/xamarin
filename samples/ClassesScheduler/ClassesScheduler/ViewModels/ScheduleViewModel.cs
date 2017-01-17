@@ -14,32 +14,9 @@ namespace ClassesScheduler.ViewModels
     {
         public ScheduleViewModel()
         {
+            InitializeDays();
+            DetectSemester();
             GetSchedule();
-            //ss.ClassSchedules.FirstOrDefault().Course.Proffesor.FirstName;
-            CassSchedulesForSpecificDay csfsd = new CassSchedulesForSpecificDay();
-            csfsd.NameOfDay = "Monday";
-            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Monday).OrderBy(t => t.FromHour).ToList();
-            Days.Add(csfsd);
-
-            csfsd = new CassSchedulesForSpecificDay();
-            csfsd.NameOfDay = "Tuesday";
-            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Tuesday).OrderBy(t => t.FromHour).ToList();
-            Days.Add(csfsd);
-
-            csfsd = new CassSchedulesForSpecificDay();
-            csfsd.NameOfDay = "Wednesday";
-            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Wednesday).OrderBy(t => t.FromHour).ToList();
-            Days.Add(csfsd);
-
-            csfsd = new CassSchedulesForSpecificDay();
-            csfsd.NameOfDay = "Thursday";
-            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Thursday).OrderBy(t => t.FromHour).ToList();
-            Days.Add(csfsd);
-
-            csfsd = new CassSchedulesForSpecificDay();
-            csfsd.NameOfDay = "Friday";
-            csfsd.Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Friday).OrderBy(t => t.FromHour).ToList();
-            Days.Add(csfsd);
         }
 
         public Course c = new Course();
@@ -55,8 +32,39 @@ namespace ClassesScheduler.ViewModels
                 return _days;
             }
         }
+                
+        private void InitializeDays()
+        {
+            CassSchedulesForSpecificDay csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Monday";
+            Days.Add(csfsd);
 
-        public void GetSchedule()
+            csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Tuesday";
+            Days.Add(csfsd);
+
+            csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Wednesday";
+            Days.Add(csfsd);
+
+            csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Thursday";
+            Days.Add(csfsd);
+
+            csfsd = new CassSchedulesForSpecificDay();
+            csfsd.NameOfDay = "Friday";
+            Days.Add(csfsd);
+        }
+        private void DetectSemester()
+        {
+            App.ScheduleParametars.Semester = new KeyValue();
+            var month = DateTime.Now.Month;
+            if (month < 6)
+                App.ScheduleParametars.Semester.Key = "Summer";
+            else
+                App.ScheduleParametars.Semester.Key = "Winter";
+        }
+        private void GetSchedule()
         {
             using (var client = new HttpClient())
             {
@@ -65,17 +73,24 @@ namespace ClassesScheduler.ViewModels
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 Task.Run(async () =>
                 {
-                    HttpResponseMessage response = await client.GetAsync(String.Format("semestarSchedules"));                    
+                    HttpResponseMessage response = await client.GetAsync(String.Format("semestarSchedules/{0}/{1}/{2}", App.ScheduleParametars.StudyField.Key, App.ScheduleParametars.YearOfStudy, App.ScheduleParametars.Semester.Key));
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         string jsonResponse = response.Content.ReadAsStringAsync().Result.Replace("'", "\'");
                         try
                         {
-                            var result = JsonConvert.DeserializeObject<List<SemestarSchedule>>(jsonResponse);
+                            var result = JsonConvert.DeserializeObject<SemestarSchedule>(jsonResponse);
                             if (result != null)
-                                ss = result.FirstOrDefault();
+                            {
+                                ss = result;
+
+                                if (ss != null)
+                                {
+                                    PopulateSchedule();
+                                }
+                            }
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
 
                         }
@@ -83,6 +98,18 @@ namespace ClassesScheduler.ViewModels
 
                 }).Wait();
             }
+        }
+        private void PopulateSchedule()
+        {
+            Days.Where(t => t.NameOfDay == "Monday").FirstOrDefault().Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Monday).OrderBy(t => t.FromHour).ToList();
+
+            Days.Where(t => t.NameOfDay == "Tuesday").FirstOrDefault().Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Tuesday).OrderBy(t => t.FromHour).ToList();
+
+            Days.Where(t => t.NameOfDay == "Wednesday").FirstOrDefault().Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Wednesday).OrderBy(t => t.FromHour).ToList();
+
+            Days.Where(t => t.NameOfDay == "Thursday").FirstOrDefault().Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Thursday).OrderBy(t => t.FromHour).ToList();
+
+            Days.Where(t => t.NameOfDay == "Friday").FirstOrDefault().Classes = ss.ClassSchedules.Where(t => t.WeekDay == Enums.WeekDay.Friday).OrderBy(t => t.FromHour).ToList();
         }
     }
 }
