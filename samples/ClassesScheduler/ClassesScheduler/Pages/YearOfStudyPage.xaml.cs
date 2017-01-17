@@ -1,5 +1,4 @@
 ﻿using ClassesScheduler.ViewModels;
-
 using Xamarin.Forms;
 
 namespace ClassesScheduler.Pages
@@ -8,12 +7,8 @@ namespace ClassesScheduler.Pages
     {
         public YearOfStudyPage()
         {
-            //Title = "Year of study";
-            //NavigationPage.SetBackButtonTitle(this, "Back");
-            //NavigationPage.SetHasBackButton(this, true);
             InitializeComponent();
             BindingContext = new YearOfStudyViewModel(Navigation);            
-            
         }
     }
 }
