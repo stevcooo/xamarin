@@ -6,9 +6,22 @@
 			 Padding="0,20,0,0"
 			 Title="Main Page">
 	<ContentPage.Content>
-		<StackLayout>
-			<Label Text="Camera Preview:" />
-			<local:CameraPreview Camera="Rear" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
-		</StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="1"  Text="Yellow" BackgroundColor="Yellow"/>
+            <Label Grid.Row="1" Grid.Column="0"  Text="Red" BackgroundColor="Red"/>
+            <local:CameraPreview Grid.Row="1" Grid.Column="1" Camera="Rear" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+            <Label Grid.Row="1" Grid.Column="2"  Text="Orange" BackgroundColor="Orange"/>
+            <Label Grid.Row="2" Grid.Column="1"  Text="White" BackgroundColor="White"/>
+        </Grid>
 	</ContentPage.Content>
 </ContentPage>
