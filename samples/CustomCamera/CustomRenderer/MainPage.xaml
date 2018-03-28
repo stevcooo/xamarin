@@ -8,14 +8,14 @@
 	<ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="10" x:Name="fr"/>
+                <RowDefinition Height="200" x:Name="sr"/>
+                <RowDefinition Height="10" x:Name="tr"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10" x:Name="fc"/>
+                <ColumnDefinition Width="200" x:Name="sc"/>
+                <ColumnDefinition Width="10" x:Name="tc"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="1"  Text="Yellow" BackgroundColor="Yellow"/>
             <Label Grid.Row="1" Grid.Column="0"  Text="Red" BackgroundColor="Red"/>

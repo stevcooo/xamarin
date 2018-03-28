@@ -7,6 +7,6 @@ namespace CustomRenderer
 		public MainPage ()
 		{
 			InitializeComponent ();
-		}
+        }
 	}
 }
